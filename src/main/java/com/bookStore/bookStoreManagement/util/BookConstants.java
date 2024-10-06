@@ -12,7 +12,7 @@ public interface BookConstants {
 
     String BOOK_SAVED_SUCCESSFULLY = "Book Saved Successfully";
 
-    String BOOK_SAVE_FAILED = "Failed to Saved Book";
+    String BOOK_SAVE_FAILED = "Failed to Save Book";
 
 
 
