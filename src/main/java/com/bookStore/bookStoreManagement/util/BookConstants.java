@@ -20,6 +20,10 @@ public interface BookConstants {
 
     String EMPTY = "";
 
+    String BOOK_UPDATED_SUCCESSFULLY = "Book Updated Successfully";
+
+    String BOOK_UPDATE_FAILED = "Failed to Update Book ";
+
 
 
 }

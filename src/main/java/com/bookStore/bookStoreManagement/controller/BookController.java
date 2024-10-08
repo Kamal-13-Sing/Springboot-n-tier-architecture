@@ -1,7 +1,7 @@
 package com.bookStore.bookStoreManagement.controller;
 
-import com.bookStore.bookStoreManagement.helper.BookDeletionHelper;
-import com.bookStore.bookStoreManagement.helper.BookDtoValidation;
+import com.bookStore.bookStoreManagement.dto.BookDto;
+import com.bookStore.bookStoreManagement.helper.BookHelper;
 import com.bookStore.bookStoreManagement.model.Book;
 import com.bookStore.bookStoreManagement.service.BookService;
 import com.bookStore.bookStoreManagement.util.BookConstants;
@@ -38,7 +38,7 @@ public class BookController implements BookConstants, ValidationConstants {
 
         try{
 
-           validationResult = BookDtoValidation.validateBookSaving(jsonData);
+           validationResult = BookHelper.validateBookJsonData(jsonData);
 
             if(validationResult.isEmpty()){
 
@@ -82,7 +82,7 @@ public class BookController implements BookConstants, ValidationConstants {
 
         List<String> validationResult;
 
-        validationResult = BookDeletionHelper.validateBookDeletion(bookId);
+        validationResult = BookHelper.validateBookDeletion(bookId);
 
         if(validationResult.isEmpty()){
 
@@ -169,9 +169,50 @@ public class BookController implements BookConstants, ValidationConstants {
             response.setStatus(status);
 
         }
+        return  response;
+    }
 
+
+    // update book
+
+    @PutMapping("/update-book")
+    public @ResponseBody Response updateBook(@RequestBody String jsonData) throws JsonProcessingException {
+
+        Response response = new Response();
+        boolean status = false;
+        List<String> validationResult;
+
+       validationResult = BookHelper.validateBookJsonData(jsonData);
+        BookDto bookDto = BookHelper.convertBookDtoToBookObject(jsonData);
+
+        Book getByBookId = bookService.getBookByBookId(bookDto.getId());
+
+
+       if(validationResult.isEmpty()){
+
+           if(getByBookId != null){
+
+               String update = bookService.updateBook(jsonData);
+               status = true;
+               response.setObject(jsonData);
+               response.setMessage(BOOK_UPDATED_SUCCESSFULLY);
+
+           }else{
+
+               response.setStatus(status);
+               response.setMessage(BOOK_NOT_FOUND);
+               response.setObject(getByBookId);
+           }
+
+       }else{
+
+           response.setStatus(status);
+           response.setMessage(BOOK_UPDATE_FAILED);
+           response.setObject(validationResult);
+       }
 
         return  response;
+
     }
 
 }

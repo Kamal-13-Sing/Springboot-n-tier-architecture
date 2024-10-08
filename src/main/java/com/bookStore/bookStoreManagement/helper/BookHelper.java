@@ -1,21 +1,42 @@
 package com.bookStore.bookStoreManagement.helper;
 
 import com.bookStore.bookStoreManagement.dto.BookDto;
+import com.bookStore.bookStoreManagement.service.BookService;
+import com.bookStore.bookStoreManagement.util.BookConstants;
 import com.bookStore.bookStoreManagement.util.ValidationConstants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+public class BookHelper implements BookConstants, ValidationConstants {
 
-public class BookDtoValidation implements ValidationConstants {
+    private final BookService bookService;
 
-    public static List<String> validateBookSaving(String jsonData){
+    public BookHelper(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    // Book Json to Book Dto Object
+
+    public static BookDto convertBookDtoToBookObject(String BookJson) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.readValue(BookJson, BookDto.class);
+    }
+
+
+    // book Dto Validation
+
+    public static List<String> validateBookJsonData(String jsonData){
 
         List<String> validationMessage =  new ArrayList<>();
 
         try{
 
-            BookDto bookDtoObj = BookDtoHelper.convertBookDtoToBookObject(jsonData);
+            BookDto bookDtoObj = BookHelper.convertBookDtoToBookObject(jsonData);
 
 
             /* book id validation condition */
@@ -56,4 +77,37 @@ public class BookDtoValidation implements ValidationConstants {
         return validationMessage;
     }
 
+    // book deletion Helper
+
+    // validate given integer
+    public static List<String> validateBookDeletion(String bookId){
+        List<String> validationMessage = new ArrayList<>();
+
+        try{
+            if(bookId == null || bookId.isBlank()){
+                validationMessage.add(BOOK_ID_IS_REQUIRED);
+            }
+
+        }catch (Exception ex){
+            validationMessage.add(BOOK_ID_IS_REQUIRED + ex.toString());
+        }
+
+        return validationMessage;
+    }
+
+    // book update helper
+
+    public  List<String> validateUpdateBook(String jsonData) throws JsonProcessingException {
+
+        List<String> validationMessage = new ArrayList<>();
+        BookDto bookDto =  BookHelper.convertBookDtoToBookObject(jsonData);
+
+        if (bookService.getBookByBookId(bookDto.getId()) == null) {
+
+            validationMessage.add(BOOK_NOT_FOUND);
+        }
+
+        return validationMessage;
+
+    }
 }
