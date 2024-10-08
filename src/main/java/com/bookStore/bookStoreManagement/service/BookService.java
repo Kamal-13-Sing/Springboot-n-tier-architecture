@@ -15,4 +15,6 @@ public interface BookService {
     public List<Book> getAllBooks();
 
     public Book getBookByBookId(Integer bookId);
+
+    public String updateBook(String jsonData) throws JsonProcessingException;
 }

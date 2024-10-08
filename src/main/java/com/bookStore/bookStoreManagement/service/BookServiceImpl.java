@@ -1,7 +1,7 @@
 package com.bookStore.bookStoreManagement.service;
 
 import com.bookStore.bookStoreManagement.dto.BookDto;
-import com.bookStore.bookStoreManagement.helper.BookDtoHelper;
+import com.bookStore.bookStoreManagement.helper.BookHelper;
 import com.bookStore.bookStoreManagement.model.Book;
 import com.bookStore.bookStoreManagement.repository.BookRepository;
 import com.bookStore.bookStoreManagement.util.BookConstants;
@@ -28,7 +28,7 @@ public class BookServiceImpl implements  BookService, BookConstants {
     // add new Book
     @Override
     public boolean addBook(String jsonData) throws JsonProcessingException {
-        BookDto bookDtoObj = BookDtoHelper.convertBookDtoToBookObject(jsonData);
+        BookDto bookDtoObj = BookHelper.convertBookDtoToBookObject(jsonData);
 
         Boolean status = false;
         Book book =  new Book();
@@ -73,6 +73,23 @@ public class BookServiceImpl implements  BookService, BookConstants {
 
             return bookRepository.findById(bookId).orElse(null);
 
+    }
+
+    @Override
+    public String updateBook(String jsonData) throws JsonProcessingException {
+
+       BookDto bookObjToDto =  BookHelper.convertBookDtoToBookObject(jsonData);
+
+       Book updateBook = new Book(
+               bookObjToDto.getId(),
+               bookObjToDto.getTitle(),
+               bookObjToDto.getAuthor(),
+               bookObjToDto.getPrice(),
+               bookObjToDto.getDescription()
+       );
+        bookRepository.save(updateBook);
+
+        return BOOK_UPDATED_SUCCESSFULLY;
     }
 
 
