@@ -25,15 +25,18 @@ public class UserRegistrationController implements UserConstants {
 
     @PostMapping("/register")
     public @ResponseBody Response registerCustomer(@RequestBody String jshonData) throws JsonProcessingException {
-
+        List<String> validationResult;
         boolean status = false;
         Response response = new Response();
-        List<String> validationResult;
+
+
 
         validationResult = UserHelper.validateUserJsonData(jshonData);
         User userObj = UserHelper.convertJsonToObject(jshonData);
 
         if(validationResult.isEmpty()){
+
+        UserHelper.validateUserJsonData(jshonData);
 
             boolean isRegistered = false;
 
@@ -42,11 +45,10 @@ public class UserRegistrationController implements UserConstants {
            if(isRegistered){
 
                status = true;
-//               response.setObject(isRegistered);
                response.setStatus(status);
                response.setMessage(USER_REGISTERED_SUCCESSFULLY);
            }else {
-//               response.setObject(isRegistered);
+
                response.setStatus(status);
                response.setMessage(USER_REGISTRATION_FAILED);
            }
