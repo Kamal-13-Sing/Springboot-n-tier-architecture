@@ -12,5 +12,11 @@ public interface UserConstants {
 
     String USER_CONTACT_IS_REQUIRED = "Contact is required";
 
+    String VALIDATION_ERROR = "Validation error";
+
+    String USER_REGISTERED_SUCCESSFULLY = "User registered successfully";
+
+    String USER_REGISTRATION_FAILED = "Failed to register user";
+
 
 }
