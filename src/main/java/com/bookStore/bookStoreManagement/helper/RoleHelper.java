@@ -16,7 +16,8 @@ public class RoleHelper implements RoleConstants {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(jsonData, Role.class);
+        Role role = objectMapper.readValue(jsonData, Role.class);
+        return role;
     }
     
     // validate Role of the user
@@ -24,6 +25,7 @@ public class RoleHelper implements RoleConstants {
     public static List<String> roleValidation(String jsonData) throws JsonProcessingException {
         
         Role roleObj = convertJsonToObject(jsonData);
+
         List<String> validationMessage = new ArrayList<>();
         
         /* roleId validation condition */
