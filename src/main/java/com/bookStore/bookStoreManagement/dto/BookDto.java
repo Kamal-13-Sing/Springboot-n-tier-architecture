@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class BookDto {
 
-    private Integer id;
+    private int id;
+
+    private String bookId;
 
     private String title;
 

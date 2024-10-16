@@ -9,4 +9,8 @@ public interface ValidationConstants {
     String SPECIFIED_KEY_NOT_FOUND = "Some of the form field is not submitted which is required to process this request";
 
     String  VALIDATION_ERROR = "Validation Error Occured";
+
+    String SAVE_SUCCESSFULLY = "Data saved successfully";
+
+    String ERROR_UNSUCCESS = "Data could not saved";
 }

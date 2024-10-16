@@ -81,7 +81,8 @@ public class BookServiceImpl implements  BookService, BookConstants {
        BookDto bookObjToDto =  BookHelper.convertBookDtoToBookObject(jsonData);
 
        Book updateBook = new Book(
-               bookObjToDto.getId(),
+               null,
+               bookObjToDto.getBookId(),
                bookObjToDto.getTitle(),
                bookObjToDto.getAuthor(),
                bookObjToDto.getPrice(),

@@ -10,15 +10,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 public class OrderedBook {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer orderId;
+    private String orderId;
 
-    private  Integer bookId;
+    private  String bookId;
 
     private double bookPrice;
 }
