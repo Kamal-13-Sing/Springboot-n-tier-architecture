@@ -17,6 +17,8 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String orderId;
+
     private  String userId;
 
     private  double totalAmount;

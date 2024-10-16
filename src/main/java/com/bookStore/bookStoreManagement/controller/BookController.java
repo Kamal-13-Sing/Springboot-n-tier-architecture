@@ -8,6 +8,8 @@ import com.bookStore.bookStoreManagement.util.BookConstants;
 import com.bookStore.bookStoreManagement.util.Response;
 import com.bookStore.bookStoreManagement.util.ValidationConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +23,47 @@ Handel All API For Book Operations
 @RequestMapping("/api/book")
 public class BookController implements BookConstants, ValidationConstants {
 
+    // creating a logger
+    Logger logger = LoggerFactory.getLogger(BookController.class);
+
     private  final BookService bookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
+
+    // get All Book List
+
+    @GetMapping("/get-all-book")
+    public @ResponseBody Response getAllBookList(){
+
+
+
+
+        Response response = new Response();
+        boolean status = false;
+
+        List<Book> book = bookService.getAllBooks();
+
+        if(book == null || book.isEmpty()){
+
+            status = false;
+            response.setMessage(BOOK_NOT_FOUND);
+            response.setStatus(status);
+
+        }else{
+
+            status = true;
+            response.setMessage(BOOK_FOUND_SUCCESSFULLY);
+            response.setStatus(status);
+            response.setObject(book);
+
+        }
+
+        return response;
+    }
+
 
     //add new book
     @PostMapping("/add-book")
@@ -114,33 +152,6 @@ public class BookController implements BookConstants, ValidationConstants {
     }
 
 
-    // get All Book List
-
-    @GetMapping("/get-all-book")
-    public @ResponseBody Response getAllBookList(){
-
-        Response response = new Response();
-        boolean status = false;
-
-        List<Book> book = bookService.getAllBooks();
-
-        if(book == null || book.isEmpty()){
-
-            status = false;
-            response.setMessage(BOOK_NOT_FOUND);
-            response.setStatus(status);
-
-        }else{
-
-            status = true;
-            response.setMessage(BOOK_FOUND_SUCCESSFULLY);
-            response.setStatus(status);
-            response.setObject(book);
-
-        }
-
-        return response;
-    }
 
     // get book by book id
 
