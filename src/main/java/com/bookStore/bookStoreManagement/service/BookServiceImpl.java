@@ -31,12 +31,15 @@ public class BookServiceImpl implements  BookService, BookConstants {
         BookDto bookDtoObj = BookHelper.convertBookDtoToBookObject(jsonData);
 
         Boolean status = false;
-        Book book =  new Book();
-                book.setId(bookDtoObj.getId());
-                book.setTitle(bookDtoObj.getTitle());
-                book.setAuthor(bookDtoObj.getAuthor());
-                book.setPrice(bookDtoObj.getPrice());
-                book.setDescription(bookDtoObj.getDescription());
+        Book book =  new Book(
+                null,
+                bookDtoObj.getBookId(),
+                bookDtoObj.getTitle(),
+                bookDtoObj.getAuthor(),
+                bookDtoObj.getPrice(),
+                bookDtoObj.getDescription()
+        );
+
 
        Book bookSaved = bookRepository.save(book);
        if(bookSaved != null){

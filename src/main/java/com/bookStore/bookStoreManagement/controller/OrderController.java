@@ -1,5 +1,6 @@
 package com.bookStore.bookStoreManagement.controller;
 
+import com.bookStore.bookStoreManagement.dto.OrderAndUserDetailDto;
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
 import com.bookStore.bookStoreManagement.helper.OrderHelper;
 import com.bookStore.bookStoreManagement.helper.OrderValidation;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +103,30 @@ public class OrderController implements ValidationConstants {
         }
 
         return response;
+    }
+
+    // get user and their ordered details
+
+    @GetMapping("/get-order-details")
+    public @ResponseBody Response getOrderDetails(){
+
+        Response response = new Response();
+        boolean status = false;
+
+        try{
+
+            List<OrderAndUserDetailDto> orderAndUserDetailDtos =   ordersService.getOrderDetails();
+
+            response.setObject(orderAndUserDetailDtos);
+
+
+        }catch (Exception ex){
+            if(logger.isDebugEnabled()){
+                logger.debug("Exception Occured: "+ex.getLocalizedMessage());
+            }
+        }
+
+        return  response;
     }
 
 }

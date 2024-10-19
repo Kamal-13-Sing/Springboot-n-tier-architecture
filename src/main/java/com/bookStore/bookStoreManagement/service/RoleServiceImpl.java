@@ -2,7 +2,9 @@ package com.bookStore.bookStoreManagement.service;
 
 import com.bookStore.bookStoreManagement.helper.RoleHelper;
 import com.bookStore.bookStoreManagement.model.Role;
+import com.bookStore.bookStoreManagement.model.UserRole;
 import com.bookStore.bookStoreManagement.repository.RoleRepository;
+import com.bookStore.bookStoreManagement.repository.UserRoleRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,12 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements  RoleService{
 
     private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
 
-    public RoleServiceImpl(RoleRepository roleRepository) {
+
+    public RoleServiceImpl(RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
         this.roleRepository = roleRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -30,4 +35,13 @@ public class RoleServiceImpl implements  RoleService{
       roleRepository.save(roleObj);
         return true;
     }
+
+    @Override
+    public boolean saveUserRole(UserRole userRole) {
+
+        userRoleRepository.save(userRole);
+
+        return true;
+    }
+
 }

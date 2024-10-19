@@ -20,9 +20,10 @@ public class UserServiceImpl implements  UserService{
         boolean status = false;
 
         User userSaveObj = new User(
+                null,
                 userObj.getUserId(),
-                userObj.getFullname(),
-                userObj.getUsername(),
+                userObj.getFullName(),
+                userObj.getUserName(),
                 userObj.getPassword(),
                 userObj.getContact(),
                 true, true, true

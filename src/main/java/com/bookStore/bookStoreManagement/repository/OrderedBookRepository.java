@@ -1,6 +1,7 @@
 package com.bookStore.bookStoreManagement.repository;
 
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
+import com.bookStore.bookStoreManagement.dto.UserDetailDto;
 import com.bookStore.bookStoreManagement.model.OrderedBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,14 +19,44 @@ public interface OrderedBookRepository extends JpaRepository<OrderedBook, Intege
 //    List<Map<String, Object>> getOrderDetailsByOrderId(String orderId);
 
     // jpql
-    @Query(value = "select new com.bookStore.bookStoreManagement.dto.OrderDetailsDto(a.orderId, a.userId, b.bookId, \n" +
-            "b.bookPrice, a.totalAmount)\n" +
+    @Query(value = "select new com.bookStore.bookStoreManagement.dto.OrderDetailsDto(a.orderId, b.bookId, \n" +
+            "b.bookPrice)\n" +
             "FROM Orders AS a\n" +
             "INNER JOIN OrderedBook AS b ON a.orderId = b.orderId \n" +
             "WHERE a.orderId =?1")
     List<OrderDetailsDto> getOrderDetailsByOrderId(String orderId);
 
-//
+
+// fetch the list of user who ordered book with native query
+
+//    @Query(value = "select a.user_id from user as a\n" +
+//            "inner join orders as b on a.user_id = b.user_id\n" +
+//            "inner join ordered_book as c on b.order_id = c.order_id group by a.user_id", nativeQuery = true)
+//    List<Map<String,  Object>> getOrderedUserIdList();
+
+
+    // fetch same data in different way
+
+    // fetch all the userId list who have order
+        @Query(value = "select a.user_id from user as a\n" +
+            "inner join orders as b on a.user_id = b.user_id\n" +
+            "inner join ordered_book as c on b.order_id = c.order_id group by a.user_id", nativeQuery = true)
+    List<String> getOrderedUserIdList();
+
+
+        // fetch user details by userId
+    @Query(value = "select  new com.bookStore.bookStoreManagement.dto.UserDetailDto(a.userId, a.fullName, a.contact,sum(b.totalAmount) as totalAmount) " +
+            "from User as a\n" +
+            "inner join Orders as b on a.userId = b.userId\n" +
+            "inner join OrderedBook as c on b.orderId = c.orderId where a.userId =?1 group by a.userId")
+    UserDetailDto getOrderedUserDetailsByUserId(String userId);
+
+    @Query(value = "select new com.bookStore.bookStoreManagement.dto.OrderDetailsDto(a.orderId, b.bookId, \n" +
+            "b.bookPrice)\n" +
+            "FROM Orders AS a\n" +
+            "INNER JOIN OrderedBook AS b ON a.orderId = b.orderId \n" +
+            "WHERE a.orderId =?1")
+    List<OrderDetailsDto> getOrderDetailsByUserId(String userId);
 
 
 

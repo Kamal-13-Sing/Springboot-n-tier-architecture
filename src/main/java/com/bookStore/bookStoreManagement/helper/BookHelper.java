@@ -40,7 +40,7 @@ public class BookHelper implements BookConstants, ValidationConstants {
 
 
             /* book id validation condition */
-            String bookId = String.valueOf(bookDtoObj.getId());
+            String bookId = String.valueOf(bookDtoObj.getBookId());
             if(bookId == null || bookId.isEmpty()){
                 validationMessage.add(BOOK_ID_IS_REQUIRED);
             }
