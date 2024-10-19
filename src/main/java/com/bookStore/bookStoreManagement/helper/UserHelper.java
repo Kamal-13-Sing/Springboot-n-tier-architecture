@@ -38,13 +38,13 @@ public class UserHelper implements UserConstants, ValidationConstants {
             }
 
             /* user fullname validation condition */
-            String userFullname = String.valueOf(userObj.getFullname());
+            String userFullname = String.valueOf(userObj.getFullName());
             if(userFullname == null || userFullname.isEmpty()){
                 validationMessage.add(USER_FULLNAME_IS_REQUIRED);
             }
 
             /* username validation condition */
-            String userName = String.valueOf(userObj.getUsername());
+            String userName = String.valueOf(userObj.getUserName());
             if(userName == null || userName.isEmpty()){
                 validationMessage.add(USERNAME_IS_REQUIRED);
             }

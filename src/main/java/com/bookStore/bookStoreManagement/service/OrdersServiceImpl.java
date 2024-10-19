@@ -1,13 +1,18 @@
 package com.bookStore.bookStoreManagement.service;
 
+import com.bookStore.bookStoreManagement.dto.OrderAndUserDetailDto;
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
+import com.bookStore.bookStoreManagement.dto.UserDetailDto;
 import com.bookStore.bookStoreManagement.model.OrderedBook;
 import com.bookStore.bookStoreManagement.model.Orders;
 import com.bookStore.bookStoreManagement.repository.OrderedBookRepository;
 import com.bookStore.bookStoreManagement.repository.OrdersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
@@ -46,6 +51,41 @@ public class OrdersServiceImpl implements OrdersService {
         System.out.println("2");
         return orderDetailsByOrderId;
 //        return null;
+    }
+
+    @Override
+    public List<OrderAndUserDetailDto> getOrderDetails() {
+
+
+
+        // fetch all the userId list who have order
+        List<String> orderedUserIdList = orderedBookRepository.getOrderedUserIdList();
+
+
+        List<OrderAndUserDetailDto> orderAndUserDetailDtos = new ArrayList<>();
+
+        List<UserDetailDto> userDetailDtoList = new ArrayList<>();
+        List<OrderDetailsDto> orderDetailsDtoList = new ArrayList<>();
+
+        OrderAndUserDetailDto orderAndUserDetailDto =  new OrderAndUserDetailDto();
+        for(String userId : orderedUserIdList){
+            System.out.println("userId: "+userId);
+
+          UserDetailDto userDetailDto =  orderedBookRepository.getOrderedUserDetailsByUserId(userId);
+          userDetailDtoList.add(userDetailDto);
+
+          List<OrderDetailsDto> orderDetailsDto = orderedBookRepository.getOrderDetailsByUserId(userId);
+
+            orderDetailsDtoList.add((OrderDetailsDto) orderDetailsDto);
+
+        }
+
+       orderAndUserDetailDto.setUserDetailDtoList(userDetailDtoList);
+      //  orderAndUserDetailDto.setOrderDetailsDto(orderDetailsDto);
+
+
+
+        return orderAndUserDetailDtos;
     }
 
 
