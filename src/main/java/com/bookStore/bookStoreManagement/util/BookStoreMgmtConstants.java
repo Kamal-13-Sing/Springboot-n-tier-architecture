@@ -10,6 +10,7 @@ public interface BookStoreMgmtConstants {
     String ORDER_ID = "order_id";
     String BOOK_ID = "book_id";
     String BOOK_PRICE = "book_price";
+    String BOOK_QUANTITY = "book_quantity";
 
 
     /*

@@ -37,7 +37,8 @@ public class BookServiceImpl implements  BookService, BookConstants {
                 bookDtoObj.getTitle(),
                 bookDtoObj.getAuthor(),
                 bookDtoObj.getPrice(),
-                bookDtoObj.getDescription()
+                bookDtoObj.getDescription(),
+                bookDtoObj.getQuantity()
         );
 
 
@@ -89,7 +90,8 @@ public class BookServiceImpl implements  BookService, BookConstants {
                bookObjToDto.getTitle(),
                bookObjToDto.getAuthor(),
                bookObjToDto.getPrice(),
-               bookObjToDto.getDescription()
+               bookObjToDto.getDescription(),
+               bookObjToDto.getQuantity()
        );
         bookRepository.save(updateBook);
 

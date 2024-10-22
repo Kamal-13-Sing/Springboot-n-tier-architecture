@@ -16,4 +16,21 @@ public class UserDetailDto {
     private String contact;
     private double totalAmount;
 
+    private Object order;
+
+    public UserDetailDto(String userId, String fullName, String contact, double totalAmount) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.contact = contact;
+        this.totalAmount = totalAmount;
+    }
+
+    public Object getOrder() {
+        return order;
+    }
+
+    public void setOrder(Object order) {
+        this.order = order;
+    }
+
 }

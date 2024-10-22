@@ -29,5 +29,7 @@ public class Book {
 
     private String description;
 
+    private double quantity;
+
 
 }

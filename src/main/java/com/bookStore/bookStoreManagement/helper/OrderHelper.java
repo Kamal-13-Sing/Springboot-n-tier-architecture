@@ -28,12 +28,14 @@ public class OrderHelper implements BookStoreMgmtConstants {
 
             String bookId = orderedBookJson.get(BOOK_ID).asText();
             double bookPrice = orderedBookJson.get(BOOK_PRICE).asDouble();
+            double bookQuatity = orderedBookJson.get(BOOK_QUANTITY).asDouble();
 
             OrderedBook orderedBookObj = new OrderedBook(
                     null,
                     orderId,
                     bookId,
-                    bookPrice
+                    bookPrice,
+                    bookQuatity
             );
 
         return orderedBookObj;
@@ -45,6 +47,7 @@ public class OrderHelper implements BookStoreMgmtConstants {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode ordersJson = objectMapper.readTree(jsonData).get(ORDERS_INFO);
+
 
         double totalAmount = ordersJson.get(TOTAL_AMOUNT).asDouble();
         String userId = ordersJson.get(USER_ID).asText();
