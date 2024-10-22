@@ -1,5 +1,6 @@
 package com.bookStore.bookStoreManagement.service;
 
+import com.bookStore.bookStoreManagement.dto.BookInfoDto;
 import com.bookStore.bookStoreManagement.dto.OrderAndUserDetailDto;
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
 import com.bookStore.bookStoreManagement.dto.UserDetailDto;
@@ -7,6 +8,7 @@ import com.bookStore.bookStoreManagement.model.OrderedBook;
 import com.bookStore.bookStoreManagement.model.Orders;
 import com.bookStore.bookStoreManagement.repository.OrderedBookRepository;
 import com.bookStore.bookStoreManagement.repository.OrdersRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,11 +27,14 @@ public class OrdersServiceImpl implements OrdersService {
         this.ordersRepository = ordersRepository;
     }
 
+    @Transactional
     @Override
     public boolean saveOrderesInfo(OrderedBook orderedBookObject, Orders ordesObject) {
 
         orderedBookRepository.save(orderedBookObject);
+        orderedBookRepository.updateBookQuentityAfterOrderdPlaced(orderedBookObject.getQuantity(), orderedBookObject.getBookId());
         ordersRepository.save(ordesObject);
+
 
         return true;
     }
@@ -54,7 +59,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public List<OrderAndUserDetailDto> getOrderDetails() {
+    public List<UserDetailDto> getOrderDetails() {
 
 
 
@@ -62,30 +67,35 @@ public class OrdersServiceImpl implements OrdersService {
         List<String> orderedUserIdList = orderedBookRepository.getOrderedUserIdList();
 
 
-        List<OrderAndUserDetailDto> orderAndUserDetailDtos = new ArrayList<>();
-
         List<UserDetailDto> userDetailDtoList = new ArrayList<>();
-        List<OrderDetailsDto> orderDetailsDtoList = new ArrayList<>();
 
         OrderAndUserDetailDto orderAndUserDetailDto =  new OrderAndUserDetailDto();
+
+        BookInfoDto bookInfoDto =  new BookInfoDto();
+
         for(String userId : orderedUserIdList){
+
             System.out.println("userId: "+userId);
 
           UserDetailDto userDetailDto =  orderedBookRepository.getOrderedUserDetailsByUserId(userId);
           userDetailDtoList.add(userDetailDto);
 
-          List<OrderDetailsDto> orderDetailsDto = orderedBookRepository.getOrderDetailsByUserId(userId);
+          List<OrderDetailsDto> orderDetailsDtos = orderedBookRepository.getOrderDetailsByUserId(userId);
 
-            orderDetailsDtoList.add((OrderDetailsDto) orderDetailsDto);
+
+         for(OrderDetailsDto OrderDetailsDtoObj : orderDetailsDtos){
+
+             bookInfoDto = orderedBookRepository.getBookInfoByBookId(OrderDetailsDtoObj.getBookId());
+             OrderDetailsDtoObj.setBookDetails(bookInfoDto);
+         }
+
+
+            userDetailDto.setOrder(orderDetailsDtos);
 
         }
+       // orderAndUserDetailDto.setUserDetailDtoList(userDetailDtoList);
 
-       orderAndUserDetailDto.setUserDetailDtoList(userDetailDtoList);
-      //  orderAndUserDetailDto.setOrderDetailsDto(orderDetailsDto);
-
-
-
-        return orderAndUserDetailDtos;
+        return userDetailDtoList;
     }
 
 

@@ -1,9 +1,11 @@
 package com.bookStore.bookStoreManagement.repository;
 
+import com.bookStore.bookStoreManagement.dto.BookInfoDto;
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
 import com.bookStore.bookStoreManagement.dto.UserDetailDto;
 import com.bookStore.bookStoreManagement.model.OrderedBook;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -51,13 +53,25 @@ public interface OrderedBookRepository extends JpaRepository<OrderedBook, Intege
             "inner join OrderedBook as c on b.orderId = c.orderId where a.userId =?1 group by a.userId")
     UserDetailDto getOrderedUserDetailsByUserId(String userId);
 
+    // fetch the ordered book details
     @Query(value = "select new com.bookStore.bookStoreManagement.dto.OrderDetailsDto(a.orderId, b.bookId, \n" +
             "b.bookPrice)\n" +
             "FROM Orders AS a\n" +
             "INNER JOIN OrderedBook AS b ON a.orderId = b.orderId \n" +
-            "WHERE a.orderId =?1")
+            "WHERE a.userId =?1")
     List<OrderDetailsDto> getOrderDetailsByUserId(String userId);
 
+
+    // fetch book information by book id
+
+    @Query("select new com.bookStore.bookStoreManagement.dto.BookInfoDto(title, description, author) from Book where bookId =?1")
+    BookInfoDto getBookInfoByBookId(String bookId);
+
+    // update the quantity of the book after ordered
+
+    @Modifying
+    @Query(value = "UPDATE book SET quantity = quantity - ?1 WHERE book_id = ?2", nativeQuery = true)
+    int updateBookQuentityAfterOrderdPlaced(double quantity, String bookId);
 
 
 

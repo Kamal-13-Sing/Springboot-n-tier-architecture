@@ -23,4 +23,6 @@ public class OrderedBook {
     private  String bookId;
 
     private double bookPrice;
+
+    private double quantity;
 }

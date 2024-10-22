@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 public class OrderAndUserDetailDto {
 
-    private  List<UserDetailDto> userDetailDtoList;
-    private List<OrderDetailsDto> orderDetailsDto;
+    private  Object userDetailDtoList;
 
 }

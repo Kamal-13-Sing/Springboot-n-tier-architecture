@@ -2,6 +2,7 @@ package com.bookStore.bookStoreManagement.service;
 
 import com.bookStore.bookStoreManagement.dto.OrderAndUserDetailDto;
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
+import com.bookStore.bookStoreManagement.dto.UserDetailDto;
 import com.bookStore.bookStoreManagement.model.OrderedBook;
 import com.bookStore.bookStoreManagement.model.Orders;
 
@@ -15,6 +16,6 @@ public interface OrdersService {
 
     public List<OrderDetailsDto> getOrderDetailsByOrderId(String orderId);
 
-    public List<OrderAndUserDetailDto> getOrderDetails();
+    public List<UserDetailDto> getOrderDetails();
 
 }

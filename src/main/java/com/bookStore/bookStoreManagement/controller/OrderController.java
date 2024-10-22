@@ -2,6 +2,7 @@ package com.bookStore.bookStoreManagement.controller;
 
 import com.bookStore.bookStoreManagement.dto.OrderAndUserDetailDto;
 import com.bookStore.bookStoreManagement.dto.OrderDetailsDto;
+import com.bookStore.bookStoreManagement.dto.UserDetailDto;
 import com.bookStore.bookStoreManagement.helper.OrderHelper;
 import com.bookStore.bookStoreManagement.helper.OrderValidation;
 import com.bookStore.bookStoreManagement.model.OrderedBook;
@@ -115,9 +116,9 @@ public class OrderController implements ValidationConstants {
 
         try{
 
-            List<OrderAndUserDetailDto> orderAndUserDetailDtos =   ordersService.getOrderDetails();
+            List<UserDetailDto> userDetailDtos =   ordersService.getOrderDetails();
 
-            response.setObject(orderAndUserDetailDtos);
+            response.setObject(userDetailDtos);
 
 
         }catch (Exception ex){

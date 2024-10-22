@@ -5,25 +5,20 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class BookDto {
-
-    private int id;
-
-    private String bookId;
+public class BookInfoDto {
 
     private String title;
 
-    private String author;
-
-    private double price;
-
     private String description;
 
-    private double quantity;
+    private String author;
+
 
 
 }
