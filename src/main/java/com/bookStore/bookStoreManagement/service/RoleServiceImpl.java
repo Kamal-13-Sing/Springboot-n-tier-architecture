@@ -1,6 +1,7 @@
 package com.bookStore.bookStoreManagement.service;
 
 import com.bookStore.bookStoreManagement.helper.RoleHelper;
+import com.bookStore.bookStoreManagement.helper.UserRoleHelper;
 import com.bookStore.bookStoreManagement.model.Role;
 import com.bookStore.bookStoreManagement.model.UserRole;
 import com.bookStore.bookStoreManagement.repository.RoleRepository;
@@ -37,8 +38,8 @@ public class RoleServiceImpl implements  RoleService{
     }
 
     @Override
-    public boolean saveUserRole(UserRole userRole) {
-
+    public boolean saveUserRole(String jsonData) throws JsonProcessingException {
+        UserRole userRole = UserRoleHelper.convertJsonToObject(jsonData);
         userRoleRepository.save(userRole);
 
         return true;
