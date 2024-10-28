@@ -69,9 +69,9 @@ public class RoleController implements RoleConstants, ValidationConstants {
 
         try{
 
-            UserRole userRole = UserRoleHelper.convertJsonToObject(jsonData);
+         //   UserRole userRole = UserRoleHelper.convertJsonToObject(jsonData);
 
-            boolean isRoleSaved = roleService.saveUserRole(userRole);
+            boolean isRoleSaved = roleService.saveUserRole(jsonData);
 
             if(isRoleSaved){
                 status  = true;

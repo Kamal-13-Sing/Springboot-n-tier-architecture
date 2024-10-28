@@ -7,5 +7,5 @@ public interface RoleService {
 
     public boolean createRole(String jsonData) throws JsonProcessingException;
 
-    public boolean saveUserRole(UserRole role);
+    public boolean saveUserRole(String jsonData) throws JsonProcessingException;
 }

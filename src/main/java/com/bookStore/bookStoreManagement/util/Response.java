@@ -1,11 +1,12 @@
 package com.bookStore.bookStoreManagement.util;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Response implements Serializable {
@@ -15,5 +16,7 @@ public class Response implements Serializable {
     private String Message;
 
     private Object object;
+
+
 
 }
