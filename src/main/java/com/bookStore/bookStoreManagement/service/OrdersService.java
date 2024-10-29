@@ -14,7 +14,7 @@ public interface OrdersService {
 
     boolean saveOrderesInfo(OrderedBook orderedBookObject, Orders ordesObject);
 
-    public List<OrderDetailsDto> getOrderDetailsByOrderId(String orderId);
+    public OrderDetailsDto getOrderDetailsByOrderId(String orderId);
 
     public List<UserDetailDto> getOrderDetails();
 

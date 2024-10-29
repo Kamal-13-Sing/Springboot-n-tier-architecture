@@ -26,7 +26,7 @@ public interface OrderedBookRepository extends JpaRepository<OrderedBook, Intege
             "FROM Orders AS a\n" +
             "INNER JOIN OrderedBook AS b ON a.orderId = b.orderId \n" +
             "WHERE a.orderId =?1")
-    List<OrderDetailsDto> getOrderDetailsByOrderId(String orderId);
+    OrderDetailsDto getOrderDetailsByOrderId(String orderId);
 
 
 // fetch the list of user who ordered book with native query
