@@ -40,7 +40,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public List<OrderDetailsDto> getOrderDetailsByOrderId(String orderId) {
+    public OrderDetailsDto getOrderDetailsByOrderId(String orderId) {
 
         System.out.println("1"+orderId);
         //List<Map<String, Object>> orderDetailsByOrderId = orderedBookRepository.getOrderDetailsByOrderId(orderId);
@@ -48,7 +48,7 @@ public class OrdersServiceImpl implements OrdersService {
       //  List<Object> orderDetailsByOrderId = orderedBookRepository.getOrderDetailsByOrderId(orderId);
 
 
-        List<OrderDetailsDto> orderDetailsByOrderId = orderedBookRepository.getOrderDetailsByOrderId(orderId);
+        OrderDetailsDto orderDetailsByOrderId = orderedBookRepository.getOrderDetailsByOrderId(orderId);
         if(orderDetailsByOrderId == null){
             System.out.println("returning null: ");
         }

@@ -84,7 +84,7 @@ public class OrderController implements ValidationConstants {
 
         try{
 
-           List<OrderDetailsDto> orderDetailsDto = ordersService.getOrderDetailsByOrderId(orderId);
+           OrderDetailsDto orderDetailsDto = ordersService.getOrderDetailsByOrderId(orderId);
 
             if(orderDetailsDto != null){
                 status = true;
