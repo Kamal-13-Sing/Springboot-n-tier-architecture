@@ -10,6 +10,7 @@ import com.bookStore.bookStoreManagement.util.ValidationConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +34,23 @@ public class BookController implements BookConstants, ValidationConstants {
     }
 
 
+    //  get all book by following sagar dai coding style
+
+//    @GetMapping("/get-all-book")
+//    public ResponseEntity<Response> getAllBook(){
+//
+//        List<Book> book = bookService.getAllBooks();
+//        return  ResponseEntity.ok(Response.builder()
+//                .status(true)
+//                .Message(BOOK_FOUND_SUCCESSFULLY)
+//                .object(book).build());
+//
+//    }
+
     // get All Book List
 
     @GetMapping("/get-all-book")
     public @ResponseBody Response getAllBookList(){
-
-
-
 
         Response response = new Response();
         boolean status = false;

@@ -69,6 +69,4 @@ public class OrderControllerTest implements ValidationConstants {
 
     }
 
-git
-
 }
